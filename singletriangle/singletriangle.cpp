@@ -4,6 +4,7 @@
 //
 //  Created by Luís Santos on 22/09/2022.
 //
+/*
 #include <iostream>
 
 // GLEW
@@ -177,4 +178,4 @@ int main()
     
     return EXIT_SUCCESS;
 }
-
+*/

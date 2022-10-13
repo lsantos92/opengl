@@ -12,6 +12,8 @@
 		168E05E728F89FAF004267C4 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */; };
 		168E05EA28F89FE6004267C4 /* singlewindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 168E05E928F89FE6004267C4 /* singlewindow.cpp */; };
 		168E05ED28F89FFF004267C4 /* singletriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 168E05EC28F89FFF004267C4 /* singletriangle.cpp */; };
+		16CAE47828F8B322000BBB66 /* twotriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47728F8B322000BBB66 /* twotriangles.cpp */; };
+		16CAE47F28F8B3CF000BBB66 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47D28F8B3CF000BBB66 /* shader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +35,11 @@
 		168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../../../../opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		168E05E928F89FE6004267C4 /* singlewindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = singlewindow.cpp; sourceTree = "<group>"; };
 		168E05EC28F89FFF004267C4 /* singletriangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = singletriangle.cpp; sourceTree = "<group>"; };
+		16CAE47728F8B322000BBB66 /* twotriangles.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = twotriangles.cpp; sourceTree = "<group>"; };
+		16CAE47B28F8B3B8000BBB66 /* SimpleVertexShader.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertexShader.vertexshader; sourceTree = "<group>"; };
+		16CAE47C28F8B3B8000BBB66 /* SimpleFragmentShader.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragmentShader.fragmentshader; sourceTree = "<group>"; };
+		16CAE47D28F8B3CF000BBB66 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
+		16CAE47E28F8B3CF000BBB66 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +59,10 @@
 		168E05CE28F89F86004267C4 = {
 			isa = PBXGroup;
 			children = (
+				16CAE47628F8B303000BBB66 /* twotriangles */,
 				168E05E828F89FCF004267C4 /* singlewindow */,
 				168E05EB28F89FED004267C4 /* singletriangle */,
+				16CAE47928F8B346000BBB66 /* shaders */,
 				168E05D828F89F86004267C4 /* Products */,
 				168E05E128F89F9A004267C4 /* Frameworks */,
 			);
@@ -91,6 +100,33 @@
 				168E05EC28F89FFF004267C4 /* singletriangle.cpp */,
 			);
 			path = singletriangle;
+			sourceTree = "<group>";
+		};
+		16CAE47628F8B303000BBB66 /* twotriangles */ = {
+			isa = PBXGroup;
+			children = (
+				16CAE47A28F8B378000BBB66 /* common */,
+				16CAE47728F8B322000BBB66 /* twotriangles.cpp */,
+			);
+			path = twotriangles;
+			sourceTree = "<group>";
+		};
+		16CAE47928F8B346000BBB66 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				16CAE47C28F8B3B8000BBB66 /* SimpleFragmentShader.fragmentshader */,
+				16CAE47B28F8B3B8000BBB66 /* SimpleVertexShader.vertexshader */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		16CAE47A28F8B378000BBB66 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				16CAE47D28F8B3CF000BBB66 /* shader.cpp */,
+				16CAE47E28F8B3CF000BBB66 /* shader.hpp */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,7 +186,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16CAE47828F8B322000BBB66 /* twotriangles.cpp in Sources */,
 				168E05EA28F89FE6004267C4 /* singlewindow.cpp in Sources */,
+				16CAE47F28F8B3CF000BBB66 /* shader.cpp in Sources */,
 				168E05ED28F89FFF004267C4 /* singletriangle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
