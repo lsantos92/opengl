@@ -52,8 +52,8 @@
 		168E05CE28F89F86004267C4 = {
 			isa = PBXGroup;
 			children = (
-				168E05EB28F89FED004267C4 /* singletriangle */,
 				168E05E828F89FCF004267C4 /* singlewindow */,
+				168E05EB28F89FED004267C4 /* singletriangle */,
 				168E05D828F89F86004267C4 /* Products */,
 				168E05E128F89F9A004267C4 /* Frameworks */,
 			);
