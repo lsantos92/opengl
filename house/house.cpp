@@ -1,9 +1,10 @@
 //
-//  twotriangles.cpp
+//  house.cpp
 //  opengl_cg
 //
-//  Created by Luís Santos on 13/10/2022.
+//  Created by Luís Santos on 14/10/2022.
 //
+
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +18,8 @@ GLFWwindow* window;
 
 // GLM header file
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 
 // shaders header file
@@ -34,6 +37,10 @@ GLuint colorbuffer;
 // GLSL program from the shaders
 GLuint programID;
 
+
+GLint WindowWidth = 800;
+GLint WindowHeight = 800;
+
 //--------------------------------------------------------------------------------
 void transferDataToGPUMemory(void)
 {
@@ -42,18 +49,21 @@ void transferDataToGPUMemory(void)
     glBindVertexArray(VertexArrayID);
     
     // Create and compile our GLSL program from the shaders
-    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/twotriangles/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/twotriangles/SimpleFragmentShader.fragmentshader" );
+    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/house/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/house/SimpleFragmentShader.fragmentshader" );
     
     
     static const GLfloat g_vertex_buffer_data[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f,
-        -1.0f, 1.0f, 0.0f,
-        1.0f, 1.0f, 0.0f,
-        0.0f,  -1.0f, 0.0f,
-             
-     
+        0.0f,  0.0f,  0.0f,
+        20.0f, 0.0f,  0.0f,
+        20.0f, 20.0f, 0.0f,
+        0.0f,  0.0f,  0.0f,
+        20.0f, 20.0f, 0.0f,
+        0.0f,  20.0f, 0.0f,
+        0.0f,  20.0f, 0.0f,
+        20.0f, 20.0f, 0.0f,
+        10.0f, 30.0f, 0.0f,
+        
+        
     };
     
     // One color for each vertex. They were generated randomly.
@@ -61,10 +71,12 @@ void transferDataToGPUMemory(void)
         1.0f,  0.0f,  0.0f,
         1.0f,  0.0f,  0.0f,
         1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
         0.0f,  1.0f,  0.0f,
         0.0f,  1.0f,  0.0f,
         0.0f,  1.0f,  0.0f,
-     
     };
     
     // Move vertex data to video memory; specifically to VBO called vertexbuffer
@@ -91,12 +103,16 @@ void cleanupDataFromGPU()
 //--------------------------------------------------------------------------------
 void draw (void)
 {
-    
     // Clear the screen
     glClear( GL_COLOR_BUFFER_BIT );
     
     // Use our shader
     glUseProgram(programID);
+    
+    // define domain in R^2
+    glm::mat4 mvp = glm::ortho(-40.0f, 40.0f, -40.0f, 40.0f);
+    unsigned int matrix = glGetUniformLocation(programID, "mvp");
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
     
     // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
@@ -123,11 +139,9 @@ void draw (void)
                           );
     
     
-    glEnable(GL_PROGRAM_POINT_SIZE);
-    glPointSize(50);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-    glDrawArrays(GL_POINTS, 0, 6); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_TRIANGLES, 0, 9); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_POINTS, 0, 9); // 3 indices starting at 0 -> 1 triangle
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
@@ -146,10 +160,9 @@ int main( void )
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
     
     // Open a window
-    window = glfwCreateWindow( 1024, 768, "Two Triangles in Red and Green", NULL, NULL);
+    window = glfwCreateWindow( WindowWidth, WindowHeight, "Moving House in 2D ", NULL, NULL);
     
     // Create window context
     glfwMakeContextCurrent(window);
@@ -161,25 +174,27 @@ int main( void )
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     
-    // Dark blue background
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    // White background
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     
     // transfer my data (vertices, colors, and shaders) to GPU side
     transferDataToGPUMemory();
     
     // render scene for each frame
     do{
-        
         // drawing callback
         draw();
+        
         // Swap buffers
         glfwSwapBuffers(window);
+        
         // looking for events
         glfwPollEvents();
         
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
           glfwWindowShouldClose(window) == 0 );
+    
     
     // Cleanup VAO, VBOs, and shaders from GPU
     cleanupDataFromGPU();

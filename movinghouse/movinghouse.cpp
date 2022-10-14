@@ -1,9 +1,3 @@
-//
-//  twotriangles.cpp
-//  opengl_cg
-//
-//  Created by Luís Santos on 13/10/2022.
-//
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +11,8 @@ GLFWwindow* window;
 
 // GLM header file
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 
 // shaders header file
@@ -34,6 +30,12 @@ GLuint colorbuffer;
 // GLSL program from the shaders
 GLuint programID;
 
+
+GLint WindowWidth = 800;
+GLint WindowHeight = 800;
+
+float delta = 0.0;
+
 //--------------------------------------------------------------------------------
 void transferDataToGPUMemory(void)
 {
@@ -42,29 +44,74 @@ void transferDataToGPUMemory(void)
     glBindVertexArray(VertexArrayID);
     
     // Create and compile our GLSL program from the shaders
-    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/twotriangles/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/twotriangles/SimpleFragmentShader.fragmentshader" );
+    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/movinghouse/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/movinghouse/SimpleFragmentShader.fragmentshader" );
     
     
     static const GLfloat g_vertex_buffer_data[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f,
-        -1.0f, 1.0f, 0.0f,
-        1.0f, 1.0f, 0.0f,
-        0.0f,  -1.0f, 0.0f,
-             
-     
+        0.0f,  0.0f,  0.0f, //bottom left -casa
+        20.0f, 0.0f,  0.0f, //bottom right
+        20.0f, 20.0f, 0.0f, //top
+        0.0f,  0.0f,  0.0f, //bottom left
+        20.0f, 20.0f, 0.0f,
+        0.0f,  20.0f, 0.0f,
+        
+    };
+    static const GLfloat g_vertex_buffer_data1[] = {
+        0.0f,  20.0f, 0.0f, //bottom left - telhado
+        20.0f, 20.0f, 0.0f,
+        10.0f, 30.0f, 0.0f,
+        
+    };
+    
+    static const GLfloat g_vertex_buffer_data2[] = {
+        5.0f,  0.0f,  0.0f, //bottom left -porta
+        10.0f, 0.0f,  0.0f, //bottom right
+        10.0f, 10.0f, 0.0f, //top
+        5.0f,  0.0f,  0.0f, //bottom left
+        10.0f, 10.0f, 0.0f,
+        5.0f,  10.0f, 0.0f,
+    };
+    
+    static const GLfloat g_vertex_buffer_data3[] = {
+        12.0f, 12.0f, 0.0f, //bottom left janela
+        18.0f, 12.0f, 0.0f,
+        18.0f, 18.0f, 0.0f,
+        12.0f, 12.0f, 0.0f, //bottom left janela
+        18.0f, 18.0f, 0.0f,
+        12.0f, 18.0f, 0.0f,
     };
     
     // One color for each vertex. They were generated randomly.
     static const GLfloat g_color_buffer_data[] = {
+        1.0f,  0.0f,  0.0f, //casa
         1.0f,  0.0f,  0.0f,
         1.0f,  0.0f,  0.0f,
         1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        
+    };
+    
+    static const GLfloat g_color_buffer_data1[] = {
+        0.0f,  1.0f,  0.0f, //telhado
         0.0f,  1.0f,  0.0f,
         0.0f,  1.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-     
+    };
+    static const GLfloat g_color_buffer_data2[] = {
+        1.0f,  1.0f,  0.0f, //porta
+        1.0f,  1.0f,  0.0f,
+        1.0f,  1.0f,  0.0f,
+        1.0f,  1.0f,  0.0f,
+        1.0f,  1.0f,  0.0f,
+        1.0f,  1.0f,  0.0f,
+    };
+    static const GLfloat g_color_buffer_data3[] = {
+        0.0f,  0.0f,  1.0f, //janela
+        0.0f,  0.0f,  1.0f,
+        0.0f,  0.0f,  1.0f,
+        0.0f,  0.0f,  1.0f,
+        0.0f,  0.0f,  1.0f,
+        0.0f,  0.0f,  1.0f,
     };
     
     // Move vertex data to video memory; specifically to VBO called vertexbuffer
@@ -72,10 +119,19 @@ void transferDataToGPUMemory(void)
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
     
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data1), g_vertex_buffer_data1, GL_STATIC_DRAW);
+    
+    
     // Move color data to video memory; specifically to CBO called colorbuffer
     glGenBuffers(1, &colorbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data1), g_vertex_buffer_data1, GL_STATIC_DRAW);
     
 }
 
@@ -91,12 +147,31 @@ void cleanupDataFromGPU()
 //--------------------------------------------------------------------------------
 void draw (void)
 {
-    
     // Clear the screen
     glClear( GL_COLOR_BUFFER_BIT );
     
     // Use our shader
     glUseProgram(programID);
+    
+    // create transformations
+    //glm::mat4 model = glm::mat4(1.0f);
+    //glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 mvp = glm::ortho(-40.0f, 40.0f, -40.0f, 40.0f);
+    
+    // Our ModelViewProjection : multiplication of our 3 matrices
+    //glm::mat4 mvp = projection * view * model;
+    // Remember, matrix multiplication is the other way around
+    
+    // retrieve the matrix uniform locations
+    unsigned int matrix = glGetUniformLocation(programID, "mvp");
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
+    
+    
+    glm::mat4 trans;
+    trans = glm::translate(glm::mat4(1.0), glm::vec3(delta, delta, 0.0f));
+    unsigned int m = glGetUniformLocation(programID, "trans");
+    glUniformMatrix4fv(m, 1, GL_FALSE, &trans[0][0]);
+    
     
     // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
@@ -123,11 +198,11 @@ void draw (void)
                           );
     
     
-    glEnable(GL_PROGRAM_POINT_SIZE);
-    glPointSize(50);
+    //glEnable(GL_PROGRAM_POINT_SIZE);
+    //glPointSize(10);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-    glDrawArrays(GL_POINTS, 0, 6); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_TRIANGLES, 0, 9); // 3 indices starting at 0 -> 1 triangle
+    //glDrawArrays(GL_POINTS, 0, 9); // 3 indices starting at 0 -> 1 triangle
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
@@ -146,10 +221,9 @@ int main( void )
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
     
     // Open a window
-    window = glfwCreateWindow( 1024, 768, "Two Triangles in Red and Green", NULL, NULL);
+    window = glfwCreateWindow( WindowWidth, WindowHeight, "Moving House in 2D ", NULL, NULL);
     
     // Create window context
     glfwMakeContextCurrent(window);
@@ -161,25 +235,30 @@ int main( void )
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     
-    // Dark blue background
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    // White background
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     
     // transfer my data (vertices, colors, and shaders) to GPU side
     transferDataToGPUMemory();
     
     // render scene for each frame
     do{
-        
         // drawing callback
         draw();
+        
         // Swap buffers
         glfwSwapBuffers(window);
+        
         // looking for events
         glfwPollEvents();
+        
+        if (delta < 10 )
+            delta += 0.05;
         
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
           glfwWindowShouldClose(window) == 0 );
+    
     
     // Cleanup VAO, VBOs, and shaders from GPU
     cleanupDataFromGPU();

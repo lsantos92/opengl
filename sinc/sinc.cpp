@@ -1,12 +1,17 @@
 //
-//  twotriangles.cpp
-//  opengl_cg
+//  main.cpp
+//  sinc
 //
-//  Created by Luís Santos on 13/10/2022.
+//  Created by Abel Gomes on 23/03/2020.
+//  Copyright © 2020 Abel Gomes. All rights reserved.
 //
+
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+#include <iostream>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -17,7 +22,10 @@ GLFWwindow* window;
 
 // GLM header file
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
+
 
 // shaders header file
 #include "common/shader.hpp"
@@ -34,38 +42,50 @@ GLuint colorbuffer;
 // GLSL program from the shaders
 GLuint programID;
 
+
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 900
+
+
+
+
 //--------------------------------------------------------------------------------
 void transferDataToGPUMemory(void)
 {
+    GLfloat x = -20.0f; // xmin of the domain
+    
     // VAO
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
     
     // Create and compile our GLSL program from the shaders
-    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/twotriangles/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/twotriangles/SimpleFragmentShader.fragmentshader" );
+    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/sinc/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/sinc/SimpleFragmentShader.fragmentshader" );
     
+    GLfloat g_vertex_buffer_data[200*3];
+    for (int i = 0; i < 200; i++)// i<80 pois como vai de -10 a 10 e anda 0.25 é fazer 20/0.25=8
+    {
+        g_vertex_buffer_data[i * 3] = x;
+
+        if ( (x > -0.01f) && (x < 0.01f) )
+            g_vertex_buffer_data[(i * 3) + 1] = 1;
+        else
+            g_vertex_buffer_data[(i * 3) + 1] = sinf(x)/x;
+        
+        g_vertex_buffer_data[(i * 3) + 2] = 0;
+        x = x + 0.2f;
+
+    }
     
-    static const GLfloat g_vertex_buffer_data[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f,
-        -1.0f, 1.0f, 0.0f,
-        1.0f, 1.0f, 0.0f,
-        0.0f,  -1.0f, 0.0f,
-             
-     
-    };
-    
-    // One color for each vertex. They were generated randomly.
-    static const GLfloat g_color_buffer_data[] = {
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-     
-    };
+
+    GLfloat g_color_buffer_data[200*3];
+    for (int i = 0; i < 200; i++)// i<80 pois como vai de -10 a 10 e anda 0.25 é fazer 20/0.25=8
+    {
+        
+        g_color_buffer_data[i * 3] = 1.0f;
+        g_color_buffer_data[(i * 3) + 1] = 0.0f;
+        g_color_buffer_data[(i * 3) + 2] = 0.0f;
+    }
+
     
     // Move vertex data to video memory; specifically to VBO called vertexbuffer
     glGenBuffers(1, &vertexbuffer);
@@ -79,6 +99,7 @@ void transferDataToGPUMemory(void)
     
 }
 
+
 //--------------------------------------------------------------------------------
 void cleanupDataFromGPU()
 {
@@ -87,6 +108,7 @@ void cleanupDataFromGPU()
     glDeleteVertexArrays(1, &VertexArrayID);
     glDeleteProgram(programID);
 }
+
 
 //--------------------------------------------------------------------------------
 void draw (void)
@@ -97,6 +119,14 @@ void draw (void)
     
     // Use our shader
     glUseProgram(programID);
+    
+    // create domain in R^2
+    glm::mat4 mvp = glm::ortho(-20.0f, 20.0f, -1.0f, 1.5f);
+    // retrieve the matrix uniform locations
+    unsigned int matrix = glGetUniformLocation(programID, "mvp");
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
+
+
     
     // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
@@ -124,10 +154,10 @@ void draw (void)
     
     
     glEnable(GL_PROGRAM_POINT_SIZE);
-    glPointSize(50);
+    //glPointSize(10);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-    glDrawArrays(GL_POINTS, 0, 6); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_LINE_STRIP, 0, 200); // 3 indices starting at 0 -> 1 triangle
+    //glDrawArrays(GL_POINTS, 0, 80); // 3 indices starting at 0 -> 1 triangle
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
@@ -135,11 +165,15 @@ void draw (void)
 //--------------------------------------------------------------------------------
 
 
-
-int main( void )
+int main(void)
 {
-    // Initialise GLFW
-    glfwInit();
+    GLFWwindow* window;
+    
+    // Initialize the library
+    if (!glfwInit())
+    {
+        return -1;
+    }
     
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -148,43 +182,53 @@ int main( void )
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     
-    // Open a window
-    window = glfwCreateWindow( 1024, 768, "Two Triangles in Red and Green", NULL, NULL);
     
-    // Create window context
+    // Create a windowed mode window and its OpenGL context
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "function sinc(x)", NULL, NULL);
+    
+    if (!window)
+    {
+        glfwTerminate();
+        return -1;
+    }
+    
+    // Make the window's context current
     glfwMakeContextCurrent(window);
     
-    // Initialize GLEW
-    glewExperimental = true; // Needed for core profile
-    glewInit();
+    glewExperimental = true;
+    // Needed for core profile
+    if (glewInit() != GLEW_OK){
+        fprintf(stderr, "Failed to initialize GLEW\n");
+        getchar();
+        glfwTerminate();
+        return -1;
+    }
     
-    // Ensure we can capture the escape key being pressed below
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     
-    // Dark blue background
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     
+   
     // transfer my data (vertices, colors, and shaders) to GPU side
     transferDataToGPUMemory();
+
     
-    // render scene for each frame
-    do{
-        
-        // drawing callback
+    // Loop until the user closes the window
+    while (!glfwWindowShouldClose(window))
+    {
+ 
         draw();
-        // Swap buffers
-        glfwSwapBuffers(window);
-        // looking for events
-        glfwPollEvents();
         
-    } // Check if the ESC key was pressed or the window was closed
-    while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-          glfwWindowShouldClose(window) == 0 );
+        // Swap front and back buffers
+        glfwSwapBuffers(window);
+        
+        // Poll for and process events
+        glfwPollEvents();
+    }
     
     // Cleanup VAO, VBOs, and shaders from GPU
     cleanupDataFromGPU();
     
-    // Close OpenGL window and terminate GLFW
     glfwTerminate();
     
     return 0;

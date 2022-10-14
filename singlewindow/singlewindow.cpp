@@ -1,87 +1,69 @@
-//
-//  singletriangle.cpp
-//  opengl_cg
-//
-//  Created by Luís Santos on 13/10/2022.
-
-// Include standard headers
-
-#include <stdio.h>
-#include <stdlib.h>
-
-// Include GLEW
 #include <GL/glew.h>
-
-// Include GLFW
 #include <GLFW/glfw3.h>
-GLFWwindow* window;
 
-// Include GLM
-#include <glm/glm.hpp>
-using namespace glm;
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 int main( void )
 {
-    // Initialise GLFW
-    if( !glfwInit() )
+    GLFWwindow *window;
+    
+    // Initialize the library
+    if ( !glfwInit( ) )
     {
-        fprintf( stderr, "Failed to initialize GLFW\n" );
-        getchar();
         return -1;
     }
     
-    glfwWindowHint(GLFW_SAMPLES, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // Create a windowed mode window and its OpenGL context
+    window = glfwCreateWindow( SCREEN_WIDTH, SCREEN_HEIGHT, "Hello World", NULL, NULL );
     
-    // Open a window and create its OpenGL context
-    window = glfwCreateWindow( 400, 400, "Window in Blue", NULL, NULL);
-    if( window == NULL ){
-        fprintf( stderr, "Failed to open GLFW window, possibly because of your Intel GPU\n" );
-        getchar();
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    
-    // Initialize GLEW
-    if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Failed to initialize GLEW\n");
-        getchar();
-        glfwTerminate();
+    if ( !window )
+    {
+        glfwTerminate( );
         return -1;
     }
     
-    // Ensure we can capture the escape key being pressed below
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    // Make the window's context current
+    glfwMakeContextCurrent( window );
     
-    // Dark blue background
-    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+    glViewport( 0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT ); // specifies the part of the window to which OpenGL will draw (in pixels), convert from normalised to pixels
+    glMatrixMode( GL_PROJECTION ); // projection matrix defines the properties of the camera that views the objects in the world coordinate frame. Here you typically set the zoom factor, aspect ratio and the near and far clipping planes
+    glLoadIdentity( ); // replace the current matrix with the identity matrix and starts us a fresh because matrix transforms such as glOrpho and glRotate cumulate, basically puts us at (0, 0, 0)
+    glOrtho( 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 0, 1 ); // essentially set coordinate system
+    glMatrixMode( GL_MODELVIEW ); // (default matrix mode) modelview matrix defines how your objects are transformed (meaning translation, rotation and scaling) in your world
+    glLoadIdentity( ); // same as above comment
     
-    do{
-        // Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
+    GLfloat pointVertex[] = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+    GLfloat pointVertex2[] = { SCREEN_WIDTH * 0.75, SCREEN_HEIGHT / 2 };
+    
+    // Loop until the user closes the window
+    while ( !glfwWindowShouldClose( window ) )
+    {
         glClear( GL_COLOR_BUFFER_BIT );
         
-        // Draw nothing, see you in tutorial 2 !
+        // Render OpenGL here
+        glEnable( GL_POINT_SMOOTH ); // make the point circular
+        glEnableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're using a vertex array for fixed-function attribute
+        glPointSize( 50 ); // must be added before glDrawArrays is called
+        glVertexPointer( 2, GL_FLOAT, 0, pointVertex ); // point to the vertices to be used
+        glDrawArrays( GL_POINTS, 0, 1 ); // draw the vertixes
+        glDisableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're finished using the vertex arrayattribute
+        glDisable( GL_POINT_SMOOTH ); // stop the smoothing to make the points circular
         
+        glEnableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're using a vertex array for fixed-function attribute
+        glVertexPointer( 2, GL_FLOAT, 0, pointVertex2 ); // point to the vertices to be used
+        glPointSize( 10 ); // must be added before glDrawArrays is called
+        glDrawArrays( GL_POINTS, 0, 1 ); // draw the vertixes
+        glDisableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're finished using the vertex arrayattribute
         
-        // Swap buffers
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        // Swap front and back buffers
+        glfwSwapBuffers( window );
         
-    } // Check if the ESC key was pressed or the window was closed
-    while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-          glfwWindowShouldClose(window) == 0 );
+        // Poll for and process events
+        glfwPollEvents( );
+    }
     
-    // Close OpenGL window and terminate GLFW
-    glfwTerminate();
+    glfwTerminate( );
     
     return 0;
 }
-
-
-
-
-
