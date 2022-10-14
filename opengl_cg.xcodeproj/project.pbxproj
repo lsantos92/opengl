@@ -14,11 +14,11 @@
 		168E05ED28F89FFF004267C4 /* singletriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 168E05EC28F89FFF004267C4 /* singletriangle.cpp */; };
 		16CAE47828F8B322000BBB66 /* twotriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47728F8B322000BBB66 /* twotriangles.cpp */; };
 		16CAE47F28F8B3CF000BBB66 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47D28F8B3CF000BBB66 /* shader.cpp */; };
-		16D6ABCF28F96C7400CD6E3F /* twotriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47728F8B322000BBB66 /* twotriangles.cpp */; };
-		16D6ABD128F96C7400CD6E3F /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47D28F8B3CF000BBB66 /* shader.cpp */; };
 		16D6ABD428F96C7400CD6E3F /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */; };
 		16D6ABD528F96C7400CD6E3F /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */; };
 		16D6ABD628F96C7400CD6E3F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E228F89F9A004267C4 /* OpenGL.framework */; };
+		16D6ABDE28F96EC400CD6E3F /* twotriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47728F8B322000BBB66 /* twotriangles.cpp */; };
+		16D6ABDF28F96ECD00CD6E3F /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CAE47D28F8B3CF000BBB66 /* shader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -241,8 +241,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16D6ABCF28F96C7400CD6E3F /* twotriangles.cpp in Sources */,
-				16D6ABD128F96C7400CD6E3F /* shader.cpp in Sources */,
+				16D6ABDF28F96ECD00CD6E3F /* shader.cpp in Sources */,
+				16D6ABDE28F96EC400CD6E3F /* twotriangles.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
