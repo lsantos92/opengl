@@ -22,11 +22,11 @@ using namespace glm;
 GLuint VertexArrayID;
 
 // Vertex buffer object (VBO)
-GLuint vertexbuffer;
-
+GLuint quadradobuffer;
+GLuint triangulobuffer;
 // color buffer object (CBO)
-GLuint colorbuffer;
-
+GLuint quadradocolorbuffer;
+GLuint triangulocolorbuffer;
 // GLSL program from the shaders
 GLuint programID;
 
@@ -47,99 +47,74 @@ void transferDataToGPUMemory(void)
     programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/movinghouse/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/movinghouse/SimpleFragmentShader.fragmentshader" );
     
     
-    static const GLfloat g_vertex_buffer_data[] = {
-        0.0f,  0.0f,  0.0f, //bottom left -casa
-        20.0f, 0.0f,  0.0f, //bottom right
-        20.0f, 20.0f, 0.0f, //top
-        0.0f,  0.0f,  0.0f, //bottom left
+    static const GLfloat quadrado[] = {
+        0.0f,  0.0f,  0.0f,
+        20.0f, 0.0f,  0.0f,
+        20.0f, 20.0f, 0.0f,
+        0.0f,  0.0f,  0.0f,
         20.0f, 20.0f, 0.0f,
         0.0f,  20.0f, 0.0f,
-        
-    };
-    static const GLfloat g_vertex_buffer_data1[] = {
-        0.0f,  20.0f, 0.0f, //bottom left - telhado
+        0.0f,  20.0f, 0.0f,
         20.0f, 20.0f, 0.0f,
         10.0f, 30.0f, 0.0f,
         
-    };
-    
-    static const GLfloat g_vertex_buffer_data2[] = {
-        5.0f,  0.0f,  0.0f, //bottom left -porta
-        10.0f, 0.0f,  0.0f, //bottom right
-        10.0f, 10.0f, 0.0f, //top
-        5.0f,  0.0f,  0.0f, //bottom left
-        10.0f, 10.0f, 0.0f,
-        5.0f,  10.0f, 0.0f,
-    };
-    
-    static const GLfloat g_vertex_buffer_data3[] = {
-        12.0f, 12.0f, 0.0f, //bottom left janela
-        18.0f, 12.0f, 0.0f,
-        18.0f, 18.0f, 0.0f,
-        12.0f, 12.0f, 0.0f, //bottom left janela
-        18.0f, 18.0f, 0.0f,
-        12.0f, 18.0f, 0.0f,
-    };
-    
-    // One color for each vertex. They were generated randomly.
-    static const GLfloat g_color_buffer_data[] = {
-        1.0f,  0.0f,  0.0f, //casa
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
         
     };
+    // One color for each vertex. They were generated randomly.
+    static const GLfloat quadradocolor[] = {
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  1.0f,  0.0f,
+        0.0f,  1.0f,  0.0f,
+        0.0f,  1.0f,  0.0f,
+    };
     
-    static const GLfloat g_color_buffer_data1[] = {
-        0.0f,  1.0f,  0.0f, //telhado
+    static const GLfloat triangulo[] = {
+        0.0f,  20.0f, 0.0f,
+        20.0f, 20.0f, 0.0f,
+        10.0f, 30.0f, 0.0f,
+    };
+    
+    static const GLfloat triangulocolor[] = {
         0.0f,  1.0f,  0.0f,
         0.0f,  1.0f,  0.0f,
+        0.0f,  1.0f,  0.0f,
     };
-    static const GLfloat g_color_buffer_data2[] = {
-        1.0f,  1.0f,  0.0f, //porta
-        1.0f,  1.0f,  0.0f,
-        1.0f,  1.0f,  0.0f,
-        1.0f,  1.0f,  0.0f,
-        1.0f,  1.0f,  0.0f,
-        1.0f,  1.0f,  0.0f,
-    };
-    static const GLfloat g_color_buffer_data3[] = {
-        0.0f,  0.0f,  1.0f, //janela
-        0.0f,  0.0f,  1.0f,
-        0.0f,  0.0f,  1.0f,
-        0.0f,  0.0f,  1.0f,
-        0.0f,  0.0f,  1.0f,
-        0.0f,  0.0f,  1.0f,
-    };
+    
+    
     
     // Move vertex data to video memory; specifically to VBO called vertexbuffer
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data1), g_vertex_buffer_data1, GL_STATIC_DRAW);
-    
+    glGenBuffers(1, &quadradobuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, quadradobuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadrado), quadrado, GL_STATIC_DRAW);
     
     // Move color data to video memory; specifically to CBO called colorbuffer
-    glGenBuffers(1, &colorbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    glGenBuffers(1, &quadradocolorbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, quadradocolorbuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadradocolor), quadradocolor, GL_STATIC_DRAW);
+    // Move vertex data to video memory; specifically to VBO called vertexbuffer
+    glGenBuffers(1, &triangulobuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, triangulobuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadrado), quadrado, GL_STATIC_DRAW);
     
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data1), g_vertex_buffer_data1, GL_STATIC_DRAW);
+    // Move color data to video memory; specifically to CBO called colorbuffer
+    glGenBuffers(1, &triangulocolorbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, triangulobuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(triangulocolor), triangulocolor, GL_STATIC_DRAW);
     
 }
 
 //--------------------------------------------------------------------------------
 void cleanupDataFromGPU()
 {
-    glDeleteBuffers(1, &vertexbuffer);
-    glDeleteBuffers(1, &colorbuffer);
+    glDeleteBuffers(1, &quadradobuffer);
+    glDeleteBuffers(1, &quadradocolorbuffer);
+    glDeleteBuffers(1, &triangulobuffer);
+    glDeleteBuffers(1, &triangulocolorbuffer);
     glDeleteVertexArrays(1, &VertexArrayID);
     glDeleteProgram(programID);
 }
@@ -168,14 +143,14 @@ void draw (void)
     
     
     glm::mat4 trans;
-    trans = glm::translate(glm::mat4(1.0), glm::vec3(delta, delta, 0.0f));
+    trans = glm::translate(glm::mat4(1.0), glm::vec3(delta, 0.0f, 0.0f));
     unsigned int m = glGetUniformLocation(programID, "trans");
     glUniformMatrix4fv(m, 1, GL_FALSE, &trans[0][0]);
     
     
     // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, quadradobuffer);
     glVertexAttribPointer(
                           0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
                           3,                  // size
@@ -187,7 +162,7 @@ void draw (void)
     
     // 2nd attribute buffer : colors
     glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, quadradocolorbuffer);
     glVertexAttribPointer(
                           1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
                           3,                                // size
@@ -201,11 +176,46 @@ void draw (void)
     //glEnable(GL_PROGRAM_POINT_SIZE);
     //glPointSize(10);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 9); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
     //glDrawArrays(GL_POINTS, 0, 9); // 3 indices starting at 0 -> 1 triangle
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+    
+    // 1rst attribute buffer : vertices
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, triangulobuffer);
+    glVertexAttribPointer(
+                          0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+                          3,                  // size
+                          GL_FLOAT,           // type
+                          GL_FALSE,           // normalized?
+                          0,                  // stride
+                          (void*)0            // array buffer offset
+                          );
+    
+    // 2nd attribute buffer : colors
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, triangulocolorbuffer);
+    glVertexAttribPointer(
+                          1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+                          3,                                // size
+                          GL_FLOAT,                         // type
+                          GL_FALSE,                         // normalized?
+                          0,                                // stride
+                          (void*)0                          // array buffer offset
+                          );
+    
+    
+    //glEnable(GL_PROGRAM_POINT_SIZE);
+    //glPointSize(10);
+    // Draw the triangle !
+    glDrawArrays(GL_TRIANGLES, 0, 0); // 3 indices starting at 0 -> 1 triangle
+    //glDrawArrays(GL_POINTS, 0, 9); // 3 indices starting at 0 -> 1 triangle
+    
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+
 }
 //--------------------------------------------------------------------------------
 
@@ -253,7 +263,8 @@ int main( void )
         glfwPollEvents();
         
         if (delta < 10 )
-            delta += 0.05;
+            delta += 0.1;
+       
         
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&

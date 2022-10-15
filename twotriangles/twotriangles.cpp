@@ -127,7 +127,7 @@ void draw (void)
     glPointSize(50);
     // Draw the triangle !
     glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-    glDrawArrays(GL_POINTS, 0, 6); // 3 indices starting at 0 -> 1 triangle
+    //glDrawArrays(GL_POINTS, 0, 6); // 3 indices starting at 0 -> 1 triangle
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);

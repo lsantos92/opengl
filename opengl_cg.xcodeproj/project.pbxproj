@@ -32,6 +32,12 @@
 		1624B6A528FA132D00081CC8 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1624B6A428FA132600081CC8 /* shader.cpp */; };
 		1624B6A628FA132D00081CC8 /* shader.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 1624B6A328FA132600081CC8 /* shader.hpp */; };
 		1624B6A728FA132D00081CC8 /* movinghouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1624B69228FA131400081CC8 /* movinghouse.cpp */; };
+		1624B6B428FA333B00081CC8 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */; };
+		1624B6B528FA333B00081CC8 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */; };
+		1624B6B628FA333B00081CC8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E228F89F9A004267C4 /* OpenGL.framework */; };
+		1624B6BF28FA336600081CC8 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1624B6BD28FA335800081CC8 /* shader.cpp */; };
+		1624B6C028FA336600081CC8 /* shader.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 1624B6BE28FA335800081CC8 /* shader.hpp */; };
+		1624B6C128FA336600081CC8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1624B6AC28FA333200081CC8 /* main.cpp */; };
 		168E05E328F89F9A004267C4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E228F89F9A004267C4 /* OpenGL.framework */; };
 		168E05E528F89FA4004267C4 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */; };
 		168E05E728F89FAF004267C4 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */; };
@@ -86,6 +92,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		1624B6B728FA333B00081CC8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		168E05D528F89F86004267C4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,12 +144,18 @@
 		1624B67D28FA10B800081CC8 /* shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		1624B67E28FA10B800081CC8 /* shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		1624B68C28FA10D100081CC8 /* sinc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sinc; sourceTree = BUILT_PRODUCTS_DIR; };
-		1624B69128FA131300081CC8 /* SimpleFragmentShader.fragmentshader */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleFragmentShader.fragmentshader; sourceTree = "<group>"; };
 		1624B69228FA131400081CC8 /* movinghouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = movinghouse.cpp; sourceTree = "<group>"; };
-		1624B69328FA131400081CC8 /* SimpleVertexShader.vertexshader */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleVertexShader.vertexshader; sourceTree = "<group>"; };
 		1624B6A128FA131800081CC8 /* movinghouse */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = movinghouse; sourceTree = BUILT_PRODUCTS_DIR; };
 		1624B6A328FA132600081CC8 /* shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		1624B6A428FA132600081CC8 /* shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
+		1624B6AB28FA333200081CC8 /* ColorFragmentShader.fragmentshader */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorFragmentShader.fragmentshader; sourceTree = "<group>"; };
+		1624B6AC28FA333200081CC8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		1624B6AD28FA333200081CC8 /* TransformVertexShader.vertexshader */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransformVertexShader.vertexshader; sourceTree = "<group>"; };
+		1624B6BB28FA333B00081CC8 /* rotatingcube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rotatingcube; sourceTree = BUILT_PRODUCTS_DIR; };
+		1624B6BD28FA335800081CC8 /* shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
+		1624B6BE28FA335800081CC8 /* shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
+		1624B6C228FA3B2A00081CC8 /* SimpleVertexShader.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertexShader.vertexshader; sourceTree = "<group>"; };
+		1624B6C328FA3B2A00081CC8 /* SimpleFragmentShader.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragmentShader.fragmentshader; sourceTree = "<group>"; };
 		168E05D728F89F86004267C4 /* opengl_cg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opengl_cg; sourceTree = BUILT_PRODUCTS_DIR; };
 		168E05E228F89F9A004267C4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../../../opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
@@ -188,6 +209,16 @@
 				1624B69A28FA131800081CC8 /* libGLEW.2.2.0.dylib in Frameworks */,
 				1624B69B28FA131800081CC8 /* libglfw.3.3.dylib in Frameworks */,
 				1624B69C28FA131800081CC8 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1624B6B328FA333B00081CC8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1624B6B428FA333B00081CC8 /* libGLEW.2.2.0.dylib in Frameworks */,
+				1624B6B528FA333B00081CC8 /* libglfw.3.3.dylib in Frameworks */,
+				1624B6B628FA333B00081CC8 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +298,10 @@
 		1624B69028FA12FD00081CC8 /* movinghouse */ = {
 			isa = PBXGroup;
 			children = (
+				1624B6C328FA3B2A00081CC8 /* SimpleFragmentShader.fragmentshader */,
+				1624B6C228FA3B2A00081CC8 /* SimpleVertexShader.vertexshader */,
 				1624B6A228FA132600081CC8 /* common */,
 				1624B69228FA131400081CC8 /* movinghouse.cpp */,
-				1624B69128FA131300081CC8 /* SimpleFragmentShader.fragmentshader */,
-				1624B69328FA131400081CC8 /* SimpleVertexShader.vertexshader */,
 			);
 			path = movinghouse;
 			sourceTree = "<group>";
@@ -284,9 +315,30 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		1624B6AA28FA331F00081CC8 /* rotatingcube */ = {
+			isa = PBXGroup;
+			children = (
+				1624B6BC28FA335800081CC8 /* common */,
+				1624B6AB28FA333200081CC8 /* ColorFragmentShader.fragmentshader */,
+				1624B6AC28FA333200081CC8 /* main.cpp */,
+				1624B6AD28FA333200081CC8 /* TransformVertexShader.vertexshader */,
+			);
+			path = rotatingcube;
+			sourceTree = "<group>";
+		};
+		1624B6BC28FA335800081CC8 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				1624B6BD28FA335800081CC8 /* shader.cpp */,
+				1624B6BE28FA335800081CC8 /* shader.hpp */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		168E05CE28F89F86004267C4 = {
 			isa = PBXGroup;
 			children = (
+				1624B6AA28FA331F00081CC8 /* rotatingcube */,
 				1624B69028FA12FD00081CC8 /* movinghouse */,
 				1624B67828FA107000081CC8 /* sinc */,
 				1624B65E28FA0C7600081CC8 /* house */,
@@ -308,6 +360,7 @@
 				1624B66B28FA0D0A00081CC8 /* house */,
 				1624B68C28FA10D100081CC8 /* sinc */,
 				1624B6A128FA131800081CC8 /* movinghouse */,
+				1624B6BB28FA333B00081CC8 /* rotatingcube */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -429,6 +482,23 @@
 			productReference = 1624B6A128FA131800081CC8 /* movinghouse */;
 			productType = "com.apple.product-type.tool";
 		};
+		1624B6AE28FA333B00081CC8 /* rotatingcube */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1624B6B828FA333B00081CC8 /* Build configuration list for PBXNativeTarget "rotatingcube" */;
+			buildPhases = (
+				1624B6AF28FA333B00081CC8 /* Sources */,
+				1624B6B328FA333B00081CC8 /* Frameworks */,
+				1624B6B728FA333B00081CC8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rotatingcube;
+			productName = opengl_cg;
+			productReference = 1624B6BB28FA333B00081CC8 /* rotatingcube */;
+			productType = "com.apple.product-type.tool";
+		};
 		168E05D628F89F86004267C4 /* opengl_cg */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 168E05DE28F89F86004267C4 /* Build configuration list for PBXNativeTarget "opengl_cg" */;
@@ -514,6 +584,7 @@
 				1624B66028FA0D0A00081CC8 /* house */,
 				1624B67F28FA10D100081CC8 /* sinc */,
 				1624B69428FA131800081CC8 /* movinghouse */,
+				1624B6AE28FA333B00081CC8 /* rotatingcube */,
 			);
 		};
 /* End PBXProject section */
@@ -554,6 +625,16 @@
 				1624B6A528FA132D00081CC8 /* shader.cpp in Sources */,
 				1624B6A628FA132D00081CC8 /* shader.hpp in Sources */,
 				1624B6A728FA132D00081CC8 /* movinghouse.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1624B6AF28FA333B00081CC8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1624B6BF28FA336600081CC8 /* shader.cpp in Sources */,
+				1624B6C028FA336600081CC8 /* shader.hpp in Sources */,
+				1624B6C128FA336600081CC8 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,6 +770,34 @@
 			name = Debug;
 		};
 		1624B6A028FA131800081CC8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/glfw/3.3.7/lib,
+					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1624B6B928FA333B00081CC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/glfw/3.3.7/lib,
+					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1624B6BA28FA333B00081CC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -930,6 +1039,15 @@
 			buildConfigurations = (
 				1624B69F28FA131800081CC8 /* Debug */,
 				1624B6A028FA131800081CC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1624B6B828FA333B00081CC8 /* Build configuration list for PBXNativeTarget "rotatingcube" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1624B6B928FA333B00081CC8 /* Debug */,
+				1624B6BA28FA333B00081CC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
