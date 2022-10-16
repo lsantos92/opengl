@@ -154,8 +154,6 @@
 		1624B6BB28FA333B00081CC8 /* rotatingcube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rotatingcube; sourceTree = BUILT_PRODUCTS_DIR; };
 		1624B6BD28FA335800081CC8 /* shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		1624B6BE28FA335800081CC8 /* shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
-		1624B6C228FA3B2A00081CC8 /* SimpleVertexShader.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertexShader.vertexshader; sourceTree = "<group>"; };
-		1624B6C328FA3B2A00081CC8 /* SimpleFragmentShader.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragmentShader.fragmentshader; sourceTree = "<group>"; };
 		168E05D728F89F86004267C4 /* opengl_cg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opengl_cg; sourceTree = BUILT_PRODUCTS_DIR; };
 		168E05E228F89F9A004267C4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../../../opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
@@ -169,6 +167,8 @@
 		16CAE47E28F8B3CF000BBB66 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		16D6ABDB28F96C7400CD6E3F /* twotriangle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = twotriangle; sourceTree = BUILT_PRODUCTS_DIR; };
 		16D6ABEE28F9B44100CD6E3F /* singletriangle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = singletriangle; sourceTree = BUILT_PRODUCTS_DIR; };
+		16E344D328FCA34500132A3B /* SimpleFragmentShader.fragmentshader */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleFragmentShader.fragmentshader; sourceTree = "<group>"; };
+		16E344D428FCA34500132A3B /* SimpleVertexShader.vertexshader */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleVertexShader.vertexshader; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,8 +298,8 @@
 		1624B69028FA12FD00081CC8 /* movinghouse */ = {
 			isa = PBXGroup;
 			children = (
-				1624B6C328FA3B2A00081CC8 /* SimpleFragmentShader.fragmentshader */,
-				1624B6C228FA3B2A00081CC8 /* SimpleVertexShader.vertexshader */,
+				16E344D328FCA34500132A3B /* SimpleFragmentShader.fragmentshader */,
+				16E344D428FCA34500132A3B /* SimpleVertexShader.vertexshader */,
 				1624B6A228FA132600081CC8 /* common */,
 				1624B69228FA131400081CC8 /* movinghouse.cpp */,
 			);
