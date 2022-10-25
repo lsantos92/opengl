@@ -132,7 +132,7 @@ void transferDataToGPUMemory(void)
         1.0f,  1.0f,  0.0f,
     };
 
-    
+    //Criaçao do buffer vertex e do buffer color
     // Move vertex data to video memory; specifically to VBO called vertexbuffer
     glGenBuffers(1, &quadradobuffer);
     glBindBuffer(GL_ARRAY_BUFFER, quadradobuffer);
@@ -174,6 +174,7 @@ void transferDataToGPUMemory(void)
 //--------------------------------------------------------------------------------
 void cleanupDataFromGPU()
 {
+    //clean the buffers
     glDeleteBuffers(1, &quadradobuffer);
     glDeleteBuffers(1, &quadradocolorbuffer);
     glDeleteBuffers(1, &triangulobuffer);
@@ -190,6 +191,8 @@ void cleanupDataFromGPU()
 }
 
 //--------------------------------------------------------------------------------
+
+//Funçao para desenhar o quadrado
 void drawQuadrado (void)
 {
     // Clear the screen
@@ -253,7 +256,7 @@ void drawQuadrado (void)
     // 1rst attribute buffer : vertices
     
 }
-
+//funçao para desenhar o triangulo (telhado)
 void drawTriangulo(void){
     // Clear the screen
     //glClear( GL_COLOR_BUFFER_BIT );
@@ -312,6 +315,8 @@ void drawTriangulo(void){
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 }
+//funçao para desenhar o rectangulo (porta)
+
 void drawPorta(void){
     // Clear the screen
     //glClear( GL_COLOR_BUFFER_BIT );
@@ -370,6 +375,8 @@ void drawPorta(void){
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 }
+//funçao para desenhar o quadrado (janela)
+
 void drawJanela(void){
     // Clear the screen
     //glClear( GL_COLOR_BUFFER_BIT );
