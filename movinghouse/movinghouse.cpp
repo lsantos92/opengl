@@ -399,7 +399,7 @@ void drawJanela(void){
     
     
     glm::mat4 trans;
-    trans = glm::translate(glm::mat4(1.0), glm::vec3(-delta, 0.0f, 0.0f));
+    trans = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, -delta, 0.0f));
     unsigned int m = glGetUniformLocation(programID, "trans");
     glUniformMatrix4fv(m, 1, GL_FALSE, &trans[0][0]);
     
@@ -484,7 +484,7 @@ int main( void )
         glfwPollEvents();
         
         if (delta < 20 )
-            delta += 0.1;
+            delta += 1;
         
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
