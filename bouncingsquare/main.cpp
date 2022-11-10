@@ -51,7 +51,7 @@ void transferDataToGPUMemory(void)
     glBindVertexArray(VertexArrayID);
     
     // Create and compile our GLSL program from the shaders
-    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/bouncingsquare/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/bouncingsquare/SimpleFragmentShader.fragmentshader" );
+    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/bouncingsquare/SimpleVertexShader.vertexshader", "/Users/abelgomes/Documents/my.OpenGL/bouncingsquare/SimpleFragmentShader.fragmentshader" );
     
     
     static const GLfloat g_vertex_buffer_data[] = {
