@@ -31,8 +31,17 @@ GLuint colorbuffer;
 GLuint programID;
 
 
-GLint WindowWidth = 600;
+GLint WindowWidth = 800;
 GLint WindowHeight = 600;
+
+float delta = 0.1;
+// Initial square position and size
+float x = 0.0;
+float y = 0.0;
+const float size = 20;
+float xstep = delta;
+float ystep = delta;
+
 
 //--------------------------------------------------------------------------------
 void transferDataToGPUMemory(void)
@@ -42,34 +51,18 @@ void transferDataToGPUMemory(void)
     glBindVertexArray(VertexArrayID);
     
     // Create and compile our GLSL program from the shaders
-    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/house4viewports/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/house4viewports/SimpleFragmentShader.fragmentshader" );
+    programID = LoadShaders( "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/bouncingsquare/SimpleVertexShader.vertexshader", "/Users/luissantos/Documents/UBI/22:23/Computação Gráfica/Prática/opengl_cg/bouncingsquare/SimpleFragmentShader.fragmentshader" );
     
     
     static const GLfloat g_vertex_buffer_data[] = {
-        0.0f,  0.0f,  0.0f,
-        20.0f, 0.0f,  0.0f,
-        20.0f, 20.0f, 0.0f,
-        0.0f,  0.0f,  0.0f,
-        20.0f, 20.0f, 0.0f,
-        0.0f,  20.0f, 0.0f,
-        0.0f,  20.0f, 0.0f,
-        20.0f, 20.0f, 0.0f,
-        10.0f, 30.0f, 0.0f,
-        
-        
+        0.0f,  0.0f,  0.0f,     20.0f, 0.0f,  0.0f,     20.0f, 20.0f, 0.0f,
+        0.0f,  0.0f,  0.0f,     20.0f, 20.0f, 0.0f,     0.0f,  20.0f, 0.0f,
     };
     
     // One color for each vertex. They were generated randomly.
     static const GLfloat g_color_buffer_data[] = {
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,     1.0f,  0.0f,  0.0f,     1.0f,  0.0f,  0.0f,
+        0.0f,  1.0f,  0.0f,     0.0f,  1.0f,  0.0f,     0.0f,  1.0f,  0.0f,
     };
     
     // Move vertex data to video memory; specifically to VBO called vertexbuffer
@@ -96,13 +89,16 @@ void cleanupDataFromGPU()
 //--------------------------------------------------------------------------------
 void draw (void)
 {
+    // Clear the screen
+    glClear( GL_COLOR_BUFFER_BIT );
+    
     // Use our shader
     glUseProgram(programID);
     
     // create transformations
     //glm::mat4 model = glm::mat4(1.0f);
     //glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 mvp = glm::ortho(-40.0f, 40.0f, -40.0f, 40.0f);
+    glm::mat4 mvp = glm::ortho(-40.0f, 40.0f, -30.0f, 30.0f);
     
     // Our ModelViewProjection : multiplication of our 3 matrices
     //glm::mat4 mvp = projection * view * model;
@@ -111,6 +107,12 @@ void draw (void)
     // retrieve the matrix uniform locations
     unsigned int matrix = glGetUniformLocation(programID, "mvp");
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
+    
+    
+    glm::mat4 trans = glm::mat4(1.0);
+    trans = glm::translate(trans, glm::vec3(x, y, 0.0f));
+    unsigned int m = glGetUniformLocation(programID, "trans");
+    glUniformMatrix4fv(m, 1, GL_FALSE, &trans[0][0]);
     
     
     // 1rst attribute buffer : vertices
@@ -141,7 +143,7 @@ void draw (void)
     //glEnable(GL_PROGRAM_POINT_SIZE);
     //glPointSize(10);
     // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 9); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
     //glDrawArrays(GL_POINTS, 0, 9); // 3 indices starting at 0 -> 1 triangle
     
     glDisableVertexAttribArray(0);
@@ -163,7 +165,7 @@ int main( void )
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
     // Open a window
-    window = glfwCreateWindow( 600, 600, "House in 4 Viewports", NULL, NULL);
+    window = glfwCreateWindow( WindowWidth, WindowHeight, "Bouncing Square in 2D ", NULL, NULL);
     
     // Create window context
     glfwMakeContextCurrent(window);
@@ -178,48 +180,37 @@ int main( void )
     // White background
     glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     
-    // Clear the screen
-    glClear( GL_COLOR_BUFFER_BIT );
-    
     // transfer my data (vertices, colors, and shaders) to GPU side
     transferDataToGPUMemory();
     
-    
-    GLuint FramebufferName = 0;
-    glGenFramebuffers(1, &FramebufferName);
-    //glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-    
-    
     // render scene for each frame
     do{
-        //left bottom
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glViewport(0, 0, WindowWidth*0.5, WindowHeight*0.5);
-        draw();
-        
-        //right bottom
-        glViewport(WindowWidth*0.5, 0, WindowWidth*0.5, WindowHeight*0.5);
-        draw();
-        
-        //left top
-        glViewport(0, WindowHeight*0.5, WindowWidth*0.5, WindowHeight*0.5);
-        draw();
-        
-        //right top
-        glViewport(WindowWidth*0.5, WindowHeight*0.5, WindowWidth*0.5, WindowHeight*0.5);
+        // drawing callback
         draw();
         
         // Swap buffers
         glfwSwapBuffers(window);
+        
         // looking for events
         glfwPollEvents();
+        
+            // BEGIN collision detection for a square
+        // reverse direction on left or right edge
+        if (x + size > 40.0f  || x < -40.0f)
+            xstep = -xstep;
+
+        // reverse direction on top or bottom edge
+        if (y + size > 30.0f || y < -30.0f)
+            ystep = -ystep;
+        // update x- and y-coordinate for square origin
+        x += xstep;
+        y += ystep; // update y-coordinate for square origin
+            // END collision detection for a square
         
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
           glfwWindowShouldClose(window) == 0 );
     
-    // delete framebuffer
-    glDeleteFramebuffers(1,&FramebufferName);
     
     // Cleanup VAO, VBOs, and shaders from GPU
     cleanupDataFromGPU();
