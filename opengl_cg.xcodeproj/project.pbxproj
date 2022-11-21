@@ -50,21 +50,18 @@
 		164985B7291CFE1F0008683C /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164985A7291CFDFA0008683C /* shader.cpp */; };
 		164985B8291CFE1F0008683C /* shader.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 164985A8291CFDFA0008683C /* shader.hpp */; };
 		164985B9291CFE1F0008683C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164985A5291CFDDE0008683C /* main.cpp */; };
-		16524D21292BB9F800B0D22D /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1A292BB9F800B0D22D /* glad.c */; };
 		16524D22292BB9F800B0D22D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16524D20292BB9F800B0D22D /* main.cpp */; };
 		16524D29292BBA0D00B0D22D /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */; };
 		16524D2A292BBA0D00B0D22D /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */; };
 		16524D2B292BBA0D00B0D22D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E228F89F9A004267C4 /* OpenGL.framework */; };
-		16524D31292BBA5300B0D22D /* camera.h in Sources */ = {isa = PBXBuildFile; fileRef = 16524D11292BB9F800B0D22D /* camera.h */; };
-		16524D32292BBA5300B0D22D /* shader_m.h in Sources */ = {isa = PBXBuildFile; fileRef = 16524D12292BB9F800B0D22D /* shader_m.h */; };
-		16524D33292BBA5300B0D22D /* khrplatform.h in Sources */ = {isa = PBXBuildFile; fileRef = 16524D16292BB9F800B0D22D /* khrplatform.h */; };
-		16524D34292BBA5300B0D22D /* glad.h in Sources */ = {isa = PBXBuildFile; fileRef = 16524D18292BB9F800B0D22D /* glad.h */; };
-		16524D35292BBA5300B0D22D /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1A292BB9F800B0D22D /* glad.c */; };
-		16524D36292BBA5300B0D22D /* 2.1.basic_lighting.fs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1C292BB9F800B0D22D /* 2.1.basic_lighting.fs */; };
-		16524D37292BBA5300B0D22D /* 2.1.lamp.fs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1D292BB9F800B0D22D /* 2.1.lamp.fs */; };
-		16524D38292BBA5300B0D22D /* 2.1.basic_lighting.vs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1E292BB9F800B0D22D /* 2.1.basic_lighting.vs */; };
-		16524D39292BBA5300B0D22D /* 2.1.lamp.vs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1F292BB9F800B0D22D /* 2.1.lamp.vs */; };
-		16524D3A292BBA5300B0D22D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16524D20292BB9F800B0D22D /* main.cpp */; };
+		16524D57292BCB1B00B0D22D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16524D20292BB9F800B0D22D /* main.cpp */; };
+		16524D5B292BCB1B00B0D22D /* camera.h in Sources */ = {isa = PBXBuildFile; fileRef = 16524D11292BB9F800B0D22D /* camera.h */; };
+		16524D5C292BCB1B00B0D22D /* shader_m.h in Sources */ = {isa = PBXBuildFile; fileRef = 16524D12292BB9F800B0D22D /* shader_m.h */; };
+		16524D5D292BCB1B00B0D22D /* 2.1.basic_lighting.fs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1C292BB9F800B0D22D /* 2.1.basic_lighting.fs */; };
+		16524D5E292BCB1B00B0D22D /* 2.1.lamp.fs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1D292BB9F800B0D22D /* 2.1.lamp.fs */; };
+		16524D5F292BCB1B00B0D22D /* 2.1.basic_lighting.vs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1E292BB9F800B0D22D /* 2.1.basic_lighting.vs */; };
+		16524D60292BCB1B00B0D22D /* 2.1.lamp.vs in Sources */ = {isa = PBXBuildFile; fileRef = 16524D1F292BB9F800B0D22D /* 2.1.lamp.vs */; };
+		16524D64292BCB6300B0D22D /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 16524D61292BCB6300B0D22D /* glad.c */; };
 		168E05E328F89F9A004267C4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E228F89F9A004267C4 /* OpenGL.framework */; };
 		168E05E528F89FA4004267C4 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */; };
 		168E05E728F89FAF004267C4 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 168E05E628F89FAF004267C4 /* libGLEW.2.2.0.dylib */; };
@@ -220,15 +217,15 @@
 		164985B6291CFE0A0008683C /* bouncingsquare */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bouncingsquare; sourceTree = BUILT_PRODUCTS_DIR; };
 		16524D11292BB9F800B0D22D /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		16524D12292BB9F800B0D22D /* shader_m.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_m.h; sourceTree = "<group>"; };
-		16524D16292BB9F800B0D22D /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
-		16524D18292BB9F800B0D22D /* glad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glad.h; sourceTree = "<group>"; };
-		16524D1A292BB9F800B0D22D /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
 		16524D1C292BB9F800B0D22D /* 2.1.basic_lighting.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2.1.basic_lighting.fs; sourceTree = "<group>"; };
 		16524D1D292BB9F800B0D22D /* 2.1.lamp.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2.1.lamp.fs; sourceTree = "<group>"; };
 		16524D1E292BB9F800B0D22D /* 2.1.basic_lighting.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2.1.basic_lighting.vs; sourceTree = "<group>"; };
 		16524D1F292BB9F800B0D22D /* 2.1.lamp.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2.1.lamp.vs; sourceTree = "<group>"; };
 		16524D20292BB9F800B0D22D /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		16524D30292BBA0D00B0D22D /* lighting */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lighting; sourceTree = BUILT_PRODUCTS_DIR; };
+		16524D61292BCB6300B0D22D /* glad.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
+		16524D62292BCB6300B0D22D /* khrplatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
+		16524D63292BCB6300B0D22D /* glad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glad.h; sourceTree = "<group>"; };
 		168E05D728F89F86004267C4 /* opengl_cg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opengl_cg; sourceTree = BUILT_PRODUCTS_DIR; };
 		168E05E228F89F9A004267C4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		168E05E428F89FA4004267C4 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../../../opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
@@ -473,10 +470,9 @@
 		16524D0F292BB9F800B0D22D /* lighting */ = {
 			isa = PBXGroup;
 			children = (
-				16524D10292BB9F800B0D22D /* include */,
-				16524D13292BB9F800B0D22D /* glad */,
-				16524D1B292BB9F800B0D22D /* shaders */,
 				16524D20292BB9F800B0D22D /* main.cpp */,
+				16524D10292BB9F800B0D22D /* include */,
+				16524D1B292BB9F800B0D22D /* shaders */,
 			);
 			path = lighting;
 			sourceTree = "<group>";
@@ -484,52 +480,13 @@
 		16524D10292BB9F800B0D22D /* include */ = {
 			isa = PBXGroup;
 			children = (
+				16524D62292BCB6300B0D22D /* khrplatform.h */,
+				16524D63292BCB6300B0D22D /* glad.h */,
+				16524D61292BCB6300B0D22D /* glad.c */,
 				16524D11292BB9F800B0D22D /* camera.h */,
 				16524D12292BB9F800B0D22D /* shader_m.h */,
 			);
 			path = include;
-			sourceTree = "<group>";
-		};
-		16524D13292BB9F800B0D22D /* glad */ = {
-			isa = PBXGroup;
-			children = (
-				16524D14292BB9F800B0D22D /* include */,
-				16524D19292BB9F800B0D22D /* src */,
-			);
-			path = glad;
-			sourceTree = "<group>";
-		};
-		16524D14292BB9F800B0D22D /* include */ = {
-			isa = PBXGroup;
-			children = (
-				16524D17292BB9F800B0D22D /* glad */,
-				16524D15292BB9F800B0D22D /* KHR */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		16524D15292BB9F800B0D22D /* KHR */ = {
-			isa = PBXGroup;
-			children = (
-				16524D16292BB9F800B0D22D /* khrplatform.h */,
-			);
-			path = KHR;
-			sourceTree = "<group>";
-		};
-		16524D17292BB9F800B0D22D /* glad */ = {
-			isa = PBXGroup;
-			children = (
-				16524D18292BB9F800B0D22D /* glad.h */,
-			);
-			path = glad;
-			sourceTree = "<group>";
-		};
-		16524D19292BB9F800B0D22D /* src */ = {
-			isa = PBXGroup;
-			children = (
-				16524D1A292BB9F800B0D22D /* glad.c */,
-			);
-			path = src;
 			sourceTree = "<group>";
 		};
 		16524D1B292BB9F800B0D22D /* shaders */ = {
@@ -930,16 +887,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16524D31292BBA5300B0D22D /* camera.h in Sources */,
-				16524D32292BBA5300B0D22D /* shader_m.h in Sources */,
-				16524D33292BBA5300B0D22D /* khrplatform.h in Sources */,
-				16524D34292BBA5300B0D22D /* glad.h in Sources */,
-				16524D35292BBA5300B0D22D /* glad.c in Sources */,
-				16524D36292BBA5300B0D22D /* 2.1.basic_lighting.fs in Sources */,
-				16524D37292BBA5300B0D22D /* 2.1.lamp.fs in Sources */,
-				16524D38292BBA5300B0D22D /* 2.1.basic_lighting.vs in Sources */,
-				16524D39292BBA5300B0D22D /* 2.1.lamp.vs in Sources */,
-				16524D3A292BBA5300B0D22D /* main.cpp in Sources */,
+				16524D57292BCB1B00B0D22D /* main.cpp in Sources */,
+				16524D64292BCB6300B0D22D /* glad.c in Sources */,
+				16524D5B292BCB1B00B0D22D /* camera.h in Sources */,
+				16524D5C292BCB1B00B0D22D /* shader_m.h in Sources */,
+				16524D5D292BCB1B00B0D22D /* 2.1.basic_lighting.fs in Sources */,
+				16524D5E292BCB1B00B0D22D /* 2.1.lamp.fs in Sources */,
+				16524D5F292BCB1B00B0D22D /* 2.1.basic_lighting.vs in Sources */,
+				16524D60292BCB1B00B0D22D /* 2.1.lamp.vs in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -953,7 +908,6 @@
 				16CAE47F28F8B3CF000BBB66 /* shader.cpp in Sources */,
 				16524D22292BB9F800B0D22D /* main.cpp in Sources */,
 				168E05ED28F89FFF004267C4 /* singletriangle.cpp in Sources */,
-				16524D21292BB9F800B0D22D /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
