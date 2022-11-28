@@ -30,10 +30,13 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // lighting
+/*
 glm::vec3 lightPos[] = {
     glm::vec3(.0f, .0f, .0f),
     glm::vec3(.0f, .0f, .0f)
 };
+ */
+glm::vec3 lightPosition(1.2f, 1.0f, 2.0f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 int main()
@@ -178,18 +181,15 @@ int main()
         
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
-        lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-        //lightingShader.setVec3("lightPos", lightPos);
+        lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.30f);
+        lightingShader.setVec3("lightColor", lightColor);
+        lightingShader.setVec3("lightPosition", lightPosition);
         
         // change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
-        lightPos[0].x = 2.0f * sin(glfwGetTime()* 1.5f) ;
-        lightPos[0].z = 2.0f * cos(glfwGetTime()* 1.5f) ;
-        lightPos[1].y = 2.0f * cos(glfwGetTime()* 1.5f) ;
-        lightPos[1].z = 2.0f * sin(glfwGetTime()* 1.5f) ;
-        
-        //lightPos.y = 0.0f;
-        //lightPos.z = 1.5f * cos(glfwGetTime()* 1.5f) ;
+      
+        lightPosition.x =sin(glfwGetTime()) * 2.0f;
+        lightPosition.y =cos(glfwGetTime()/2.0f) * 1.0f;
+    
       
         
         // view/projection transformations
@@ -206,25 +206,17 @@ int main()
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         
-        for (unsigned int i = 0; i < 2; i++)
-        {
-            lightingShader.setVec3("lightPos", lightPos[i]);
-            // also draw the lamp object
-            lampShader.use();
-            lampShader.setMat4("projection", projection);
-            lampShader.setMat4("view", view);
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, lightPos[i]);
-            model = glm::scale(model, glm::vec3(0.3f)); // a smaller cube
-            lampShader.setMat4("model", model);
-            glBindVertexArray(lightVAO);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-            
-        }
-        
-        
-        
-        
+        // also draw the lamp object
+        lampShader.use();
+        lampShader.setMat4("projection", projection);
+        lampShader.setMat4("view", view);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, lightPosition);
+        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+        lampShader.setMat4("model", model);
+        glBindVertexArray(lightVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
         
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

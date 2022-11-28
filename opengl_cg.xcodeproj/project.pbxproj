@@ -503,6 +503,7 @@
 		168E05CE28F89F86004267C4 = {
 			isa = PBXGroup;
 			children = (
+				16ADDFBB29353BEA009F477B /* world */,
 				16524D0F292BB9F800B0D22D /* lighting */,
 				164985A2291CFDDE0008683C /* bouncingsquare */,
 				1649858D291CF9F20008683C /* house4viewports */,
@@ -560,6 +561,13 @@
 				168E05EC28F89FFF004267C4 /* singletriangle.cpp */,
 			);
 			path = singletriangle;
+			sourceTree = "<group>";
+		};
+		16ADDFBB29353BEA009F477B /* world */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = world;
 			sourceTree = "<group>";
 		};
 		16CAE47628F8B303000BBB66 /* twotriangles */ = {
