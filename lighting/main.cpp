@@ -187,9 +187,9 @@ int main()
         
         // change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
       
-        //lightPosition.x =sin(glfwGetTime()) * 2.0f;
-        //lightPosition.y =cos(glfwGetTime()/2.0f) * 1.0f;
-    
+        lightPosition.x =sin(glfwGetTime()) * 2.0f;
+        lightPosition.y =cos(glfwGetTime()/2.0f) * 1.0f;
+        lightPosition.z =5.0f;
       
         
         // view/projection transformations
